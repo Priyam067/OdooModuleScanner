@@ -31,6 +31,12 @@ pip install xlwt
 2. Place the script inside the directory where your Odoo modules are located or provide the path to the directory in the script.
 3. Run the script:
 ```bash
-python3 main.py
+python3 main.py /path/to/directory
 ```
 4.The script will generate an Excel file named odoo_modules_data.xls in the current directory.
+
+## License
+
+- This project is licensed under the MIT License. See the LICENSE file for details.
+
+- Feel free to adjust or add any additional sections as necessary to fit your specific use case or requirements.
