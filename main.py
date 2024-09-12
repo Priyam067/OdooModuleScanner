@@ -1,6 +1,7 @@
 import os
 import ast
 import xlwt
+import sys
 
 # Function to extract 'depends' and 'name' from __manifest__.py
 def extract_module_info(manifest_path):
@@ -41,12 +42,18 @@ def detect_modules_and_generate_excel(root_dir, output_file):
     print(f"Excel file saved as {output_file}")
 
 if __name__ == "__main__":
-    # Ask the user for the root directory
-    root_directory = input("Enter the path to the directory containing Odoo modules: ")
+    if len(sys.argv) != 2:
+        print("Usage: python main.py /path/to/directory")
+        sys.exit(1)
+    
+    root_directory = sys.argv[1]  # Get the directory path from the command line argument
+    if not os.path.isdir(root_directory):
+        print(f"Error: {root_directory} is not a valid directory.")
+        sys.exit(1)
 
     # Get the path of the script and use it to save the output Excel file
     script_directory = os.path.dirname(os.path.abspath(__file__))
-    output_excel_file = os.path.join(script_directory, 'odoo_modules.xls')
+    output_excel_file = os.path.join(script_directory, 'odoo_modules_data.xls')
 
     # Run the detection and excel generation
     detect_modules_and_generate_excel(root_directory, output_excel_file)
