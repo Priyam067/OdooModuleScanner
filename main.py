@@ -93,15 +93,19 @@ def detect_modules_and_generate_excel(root_dir, output_file):
         if os.path.isfile(init_path) and os.path.isfile(manifest_path):
             manifest_data = extract_module_info(manifest_path)
             if manifest_data:
+                depends = manifest_data.get('depends', [])
+                data = manifest_data.get('data', [])
+                demo = manifest_data.get('demo', [])
+                assets = manifest_data.get('assets', [])
                 sheet.write(row, 0, module_dir, row_style)
                 sheet.write(row, 1, module, row_style)
                 sheet.write(row, 2, manifest_data.get('version'), row_style)
                 sheet.write(row, 3, manifest_data.get('price'), row_style)
                 sheet.write(row, 4, manifest_data.get('author'), row_style)
-                sheet.write(row, 5, ",\n".join(manifest_data.get('depends')) or "", row_style)
-                sheet.write(row, 6, ",\n".join(manifest_data.get('data')) or "", row_style)
-                sheet.write(row, 7, ",\n".join(manifest_data.get('demo')) or "", row_style)
-                sheet.write(row, 8, ",\n".join(manifest_data.get('assets')) or "", row_style)
+                sheet.write(row, 5, ",\n".join(depends) if isinstance(depends, list) else "", row_style)
+                sheet.write(row, 6, ",\n".join(data) if isinstance(data, list) else "", row_style)
+                sheet.write(row, 7, ",\n".join(demo) if isinstance(demo, list) else "", row_style)
+                sheet.write(row, 8, ",\n".join(assets) if isinstance(assets, list) else "", row_style)
                 sheet.write(row, 9, manifest_data.get('description'), row_style)
                 sheet.write(row, 10, manifest_data.get('summary'), row_style)
 
